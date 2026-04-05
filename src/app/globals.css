@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-primary: #7600BC;
+    --brand-secondary: #9714E5; 
+    --brand-dark: #121214; 
+    --brand-light: #FAFAFC; 
+  }
+
+  body {
+    background-color: var(--brand-light);
+    color: var(--brand-dark);
+  }
+}
+
+@layer utilities {
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+  }
+}
