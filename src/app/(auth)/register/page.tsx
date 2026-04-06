@@ -22,6 +22,7 @@ export default function RegisterPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState(""); 
+    
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
@@ -163,7 +164,7 @@ export default function RegisterPage() {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     className="w-full pl-12 pr-4 py-4 lg:py-3.5 rounded-2xl outline-none transition-all duration-300 text-base font-medium bg-white/5 border border-white/10 text-white placeholder-purple-300/50 focus:bg-white/10 focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 backdrop-blur-md lg:bg-gray-50/50 lg:border-gray-200 lg:text-gray-900 lg:placeholder-gray-400 lg:hover:bg-gray-50 lg:focus:bg-white lg:focus:border-purple-600 lg:focus:ring-purple-600/10 lg:backdrop-blur-none"
-                                    placeholder="Ex: Felipe"
+                                    placeholder="Nome"
                                     required
                                     disabled={isLoading || success}
                                 />
