@@ -51,7 +51,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     const menuItems = [
         { name: "Visão Geral", icon: LayoutDashboard, href: "/dashboard" },
-        { name: "Transações", icon: Wallet, href: "/dashboard/sales" },
+        { name: "Transações", icon: Wallet, href: "/sales" },
         { name: "Conciliação Bancária", icon: ArrowLeftRight, href: "/dashboard/reconcile" },
         { name: "Ajustes da Conta", icon: Settings, href: "/dashboard/settings" },
     ];
