@@ -53,7 +53,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { name: "Visão Geral", icon: LayoutDashboard, href: "/dashboard" },
         { name: "Transações", icon: Wallet, href: "/sales" },
         { name: "Conciliação Bancária", icon: ArrowLeftRight, href: "/reconcile" },
-        { name: "Ajustes da Conta", icon: Settings, href: "/dashboard/settings" },
+        { name: "Ajustes da Conta", icon: Settings, href: "/settings" },
     ];
 
     return (
