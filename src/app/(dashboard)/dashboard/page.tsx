@@ -64,7 +64,10 @@ export default function DashboardPage() {
                     <p className="text-gray-500 mt-1.5 font-medium">Acompanhe o fluxo de caixa e o status das suas conciliações de hoje.</p>
                 </div>
                 
-                <button className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm hover:bg-gray-50 hover:text-purple-700 hover:border-purple-200 transition-all active:scale-95">
+                <button 
+                    onClick={() => alert("🚧 Em breve: Exportação de relatórios em PDF/Excel")}
+                    className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm hover:bg-gray-50 hover:text-purple-700 hover:border-purple-200 transition-all active:scale-95"
+                >
                     <ArrowUpRight className="w-4 h-4" />
                     Exportar Relatório
                 </button>

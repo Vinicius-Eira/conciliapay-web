@@ -11,13 +11,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const router = useRouter();
     const pathname = usePathname();
     
-    const [userEmail, setUserEmail] = useState("Carregando...");
+    const [userName, setUserName] = useState("Carregando...");
     const [userInitial, setUserInitial] = useState("");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const handleLogout = () => {
         Cookies.remove("conciliapay.token");
         router.push("/login");
+    };
+
+    const handleFeatureInDevelopment = (featureName: string) => {
+        alert(`🚧 Funcionalidade em desenvolvimento: ${featureName}`);
     };
 
     useEffect(() => {
@@ -27,10 +31,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             if (token) {
                 try {
                     const decoded = jwtDecode<{ sub?: string }>(token)
-                    const email = decoded.sub || "Usuário Admin";
+                    const email = decoded.sub || "usuario@conciliapay.com";
                     
-                    setUserEmail(email);
-                    setUserInitial(email.charAt(0).toUpperCase());
+                    const namePart = email.split('@')[0];
+                    const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+                    
+                    setUserName(formattedName);
+                    setUserInitial(formattedName.charAt(0).toUpperCase());
                 } catch (error) {
                     console.error("Erro ao ler o token", error);
                     handleLogout();
@@ -102,7 +109,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             {userInitial ? userInitial : <User className="w-5 h-5" />}
                         </div>
                         <div className="overflow-hidden">
-                            <p className="text-sm font-bold text-white truncate">{userEmail}</p>
+                            <p className="text-sm font-bold text-white truncate">{userName}</p>
                             <p className="text-xs text-purple-300/70">Admin Workspace</p>
                         </div>
                     </div>
@@ -142,6 +149,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
                     <div className="flex items-center gap-3 sm:gap-5">
                         <button 
+                            onClick={() => handleFeatureInDevelopment("Central de Notificações")}
                             className="relative p-2 rounded-full text-gray-500 hover:bg-gray-100 transition-colors"
                             aria-label="Ver notificações"
                         >
@@ -150,8 +158,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </button>
                         
                         <div className="hidden sm:flex items-center gap-3 pl-5 border-l border-gray-200">
-                             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-[#0A0014] flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                {userInitial}
+                             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-[#0A0014] flex items-center justify-center text-white font-bold text-sm shadow-md cursor-pointer hover:opacity-90 transition-opacity" title="Ajustes da Conta">
+                                {userInitial ? userInitial : <User className="w-5 h-5" />}
                             </div>
                         </div>
                     </div>
