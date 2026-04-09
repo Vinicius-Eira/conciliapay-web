@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { api } from "@/services/api"; 
 import { DollarSign, CheckCircle2, Clock, ArrowUpRight, AlertCircle } from "lucide-react";
 import { PerformanceChart } from "./components/PerformanceChart";
-import { MobileStatusChart } from "./components/MobileStatusChart";
+import { MobileStatusChart } from "./components/MobileStatusChart"; 
 interface DashboardMetrics {
     grossSales: number;
     reconciled: number;
