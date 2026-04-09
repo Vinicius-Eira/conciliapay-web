@@ -2,12 +2,19 @@
 
 import { useState, useEffect } from "react";
 import { api } from "@/services/api"; 
-import { DollarSign, CheckCircle2, Clock, ArrowUpRight, TrendingUp } from "lucide-react";
+import { DollarSign, CheckCircle2, Clock, ArrowUpRight } from "lucide-react";
+import { PerformanceChart } from "./components/PerformanceChart"; // Caminho ajustado
 
 interface DashboardMetrics {
     grossSales: number;
     reconciled: number;
     pending: number;
+}
+
+interface PerformanceData {
+    month: string;
+    revenue: number;
+    expenses: number;
 }
 
 interface MetricCardProps {
@@ -26,15 +33,21 @@ export default function DashboardPage() {
         pending: 0,
     });
     
+    const [performance, setPerformance] = useState<PerformanceData[]>([]);
+    
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() => {
         async function fetchDashboardData() {
             try {
-                const response = await api.get("/metrics/summary");
+                const [summaryResponse, performanceResponse] = await Promise.all([
+                    api.get("/metrics/summary"),
+                    api.get("/metrics/performance")
+                ]);
                 
-                setMetrics(response.data);
+                setMetrics(summaryResponse.data);
+                setPerformance(performanceResponse.data);
                 setError("");
 
             } catch (err) {
@@ -109,12 +122,18 @@ export default function DashboardPage() {
                 />
             </div>
 
-            <div className="mt-12 bg-white border border-gray-100 rounded-3xl p-8 shadow-sm flex flex-col items-center justify-center min-h-[300px] text-center border-dashed">
-                <div className="w-16 h-16 bg-purple-50 text-purple-500 rounded-full flex items-center justify-center mb-4">
-                    <TrendingUp className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-800">Gráfico de Performance</h3>
-                <p className="text-gray-500 mt-2 max-w-md">Em breve: Acompanhe a evolução das suas receitas diárias e compare o volume de vendas x taxa de conciliação.</p>
+            <div className="mt-12">
+                {isLoading ? (
+                    // Skeleton Loading estiloso para o gráfico
+                    <div className="h-[400px] w-full bg-white border border-gray-100 rounded-3xl p-8 shadow-sm flex items-center justify-center">
+                        <div className="flex flex-col items-center animate-pulse">
+                            <div className="w-12 h-12 bg-gray-100 rounded-full mb-4"></div>
+                            <div className="h-4 bg-gray-100 rounded w-48"></div>
+                        </div>
+                    </div>
+                ) : performance.length > 0 ? (
+                    <PerformanceChart data={performance} />
+                ) : null}
             </div>
 
         </div>
